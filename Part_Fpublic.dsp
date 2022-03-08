@@ -9,25 +9,25 @@ nb_soundfile = 5; // number of soundfile
 
 // PROCESS
 process = play:(@(ramp*ma.SR): select_sound ),(rampa(ramp):1,_:-):*:*(gain):*(temporisation:si.smooth(0.998))
-		with {
-			play = ((1-Trig_Accel)<:sh(1),_:*),Trig_Accel;
-			sh(x,t) = select2(t,x,_) ~ _;
+    with {
+        play = ((1-Trig_Accel)<:sh(1),_:*),Trig_Accel;
+        sh(x,t) = select2(t,x,_) ~ _;
 
-			select_sound = _<:select_a_sound,par(i,nb_soundfile,linplayer(sound(i))):multiselect(nb_soundfile):>_;
+        select_sound = _<:select_a_sound,par(i,nb_soundfile,linplayer(sound(i))):multiselect(nb_soundfile):>_;
 
-			//-----------------------------------------------------------------------------------
-			/// Random Selection ID /////////////////////////////////////////////////////////////
-			random_ID = no.noise:+(1):*(0.5):*(nb_soundfile):int;
+        //-----------------------------------------------------------------------------------
+        /// Random Selection ID /////////////////////////////////////////////////////////////
+        random_ID = no.noise:+(1):*(0.5):*(nb_soundfile):int;
 
-			//-----------------------------------------------------------------------------------
-			/// Selection Random  Audio file with accelerometer trigger /////////////////////////
-			select_a_sound(x) = sh(random_ID,x):int;
+        //-----------------------------------------------------------------------------------
+        /// Selection Random  Audio file with accelerometer trigger /////////////////////////
+        select_a_sound(x) = sh(random_ID,x):int;
 
-			ramp = 0.001; //second
+        ramp = 0.001; //second
 
-			gain = hslider("gain_dB [acc:2 0 -8 -3 -0.5] [hidden:1]",0.5,0,1,0.001):fi.lowpass(1,1.5);
-			temporisation = time_count(1) > 2500; // 2.5sec
-		};
+        gain = hslider("gain_dB [acc:2 0 -8 -3 -0.5] [hidden:1]",0.5,0,1,0.001):fi.lowpass(1,1.5);
+        temporisation = time_count(1) > 2500; // 2.5sec
+    };
 
 //---------------------------------------------------------------------------------------
 // Soundfiles
@@ -55,15 +55,15 @@ accel_z = hslider("acc_z [acc:2 0 -30 0 30][hidden:1]",0,-1,1,0.001);
 Accel(x,y,z) = (x*x),(y*y),(z*z):> sqrt;
 
 range_utile = - (offest:*(0.01)):max(0)
-		with {
-			offest = hslider("offset [hidden:1]",9,0,100,0.1);
-		};
+	with {
+		offest = hslider("offset [hidden:1]",9,0,100,0.1);
+	};
 //////////////////////////////// Bonk ////////////////////////////////////////
 bonk(c) = (c-c@t)>a
-           with{
-            t= hslider("winsdow_size [unit:ms][hidden:1]",1,1,7000,1);
-            a= hslider("threshold [hidden:1]",30,0,30,0.01)*0.01;
-           };
+    with {
+        t = hslider("winsdow_size [unit:ms][hidden:1]",1,1,7000,1);
+        a = hslider("threshold [hidden:1]",30,0,30,0.01)*0.01;
+    };
 //////////////////////////////// Antirebond ////////////////////////////////////////
 // usage: _:antirebond:_
 // input signal will be binary type... int this way it was created
@@ -78,8 +78,8 @@ time_count (reset) = +(0)~(+(time_base): * (reset)):*(1000);
 
 decount =_<:time_count<(fin),_:*
 	with {
-			fin = hslider("antirebond [unit:ms][hidden:1]", 250,0,500,1);
-		};
+		fin = hslider("antirebond [unit:ms][hidden:1]", 250,0,500,1);
+	};
 
 antirebond = (choix : decount <: logic_selector,_) ~_:!,_;
 ////////////////////////////////////////////////////////////////////////////////////

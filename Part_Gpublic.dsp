@@ -9,25 +9,25 @@ nb_soundfile = 4;
 
 // PROCESS
 process = play:(@(ramp*ma.SR): select_sound ),(rampa(ramp):1,_:-):*:*(temporisation:si.smooth(0.998)):*(gain)
-		with {
-			play = ((1-Trig_Accel)<:sh(1),_:*),Trig_Accel;
-			sh(x,t) = select2(t,x,_) ~ _;
+    with {
+        play = ((1-Trig_Accel)<:sh(1),_:*),Trig_Accel;
+        sh(x,t) = select2(t,x,_) ~ _;
 
-			select_sound = _<:select_a_sound,par(i,nb_soundfile,linplayer(sound(i))):multiselect(nb_soundfile):>_;
+        select_sound = _<:select_a_sound,par(i,nb_soundfile,linplayer(sound(i))):multiselect(nb_soundfile):>_;
 
-			//-----------------------------------------------------------------------------------
-			/// Random Selection ID /////////////////////////////////////////////////////////////
-			random_ID = no.noise:+(1):*(0.5):*(nb_soundfile):int;
+        //-----------------------------------------------------------------------------------
+        /// Random Selection ID /////////////////////////////////////////////////////////////
+        random_ID = no.noise:+(1):*(0.5):*(nb_soundfile):int;
 
-			//-----------------------------------------------------------------------------------
-			/// Selection Random  Audio file with accelerometer trigger /////////////////////////
-			select_a_sound(x) = sh(random_ID,x):int;
+        //-----------------------------------------------------------------------------------
+        /// Selection Random  Audio file with accelerometer trigger /////////////////////////
+        select_a_sound(x) = sh(random_ID,x):int;
 
-			ramp = 0.001;
+        ramp = 0.001;
 
-			gain = hslider("gain_dB [acc:2 0 -8 -3 -0.5] [hidden:1]",0.5,0,1,0.001):fi.lowpass(1,1.5);
-			temporisation = time_count(1) > 13000; // 13sec
-		};
+        gain = hslider("gain_dB [acc:2 0 -8 -3 -0.5] [hidden:1]",0.5,0,1,0.001):fi.lowpass(1,1.5);
+        temporisation = time_count(1) > 13000; // 13sec
+    };
 
 //---------------------------------------------------------------------------------------
 // Soundfiles
