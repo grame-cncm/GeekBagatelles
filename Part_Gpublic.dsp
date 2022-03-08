@@ -8,7 +8,7 @@ import("stdfaust.lib");
 nb_soundfile = 4;
 
 // PROCESS
-process = play:(@(ramp*ma.SR): select_sound ),(rampa(ramp):1,_:-):*:*(temporisation:si.smooth(0.998)):*(gain)
+process = play:(@(ramp*ma.SR): select_sound),(rampa(ramp):1,_:-):*:*(temporisation:si.smooth(0.998)):*(gain)
     with {
         play = ((1-Trig_Accel)<:sh(1),_:*),Trig_Accel;
         sh(x,t) = select2(t,x,_) ~ _;
@@ -76,7 +76,7 @@ time_count (reset) = +(0)~(+(time_base): * (reset)):*(1000);
 
 decount =_<:time_count<(fin),_:*
 	with {
-		fin = hslider ( "antirebond [unit:ms][hidden:1]", 250,0,500,1);
+		fin = hslider("antirebond [unit:ms][hidden:1]", 250,0,500,1);
 	};
 
 antirebond = (choix : decount <: logic_selector,_) ~_:!,_;

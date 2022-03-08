@@ -8,7 +8,7 @@ import("stdfaust.lib");
 nb_soundfile = 5; // number of soundfile
 
 // PROCESS
-process = play:(@(ramp*ma.SR): select_sound ),(rampa(ramp):1,_:-):*:*(gain):*(temporisation:si.smooth(0.998))
+process = play:(@(ramp*ma.SR): select_sound),(rampa(ramp):1,_:-):*:*(gain):*(temporisation:si.smooth(0.998))
     with {
         play = ((1-Trig_Accel)<:sh(1),_:*),Trig_Accel;
         sh(x,t) = select2(t,x,_) ~ _;
@@ -68,9 +68,9 @@ bonk(c) = (c-c@t)>a
 // usage: _:antirebond:_
 // input signal will be binary type... int this way it was created
 // logical need to don't listen input during "time_count"
-choix =  select2(_,1,_);
+choix = select2(_,1,_);
 
-logic_selector = _,(0): == ;
+logic_selector = _,(0): ==;
 
 // time count in ms
 time_base = 1/ma.SR;
@@ -143,7 +143,7 @@ with {
 // wf   : the waveform to play
 // play : control signal 1-play, 0-stop
 
-linplayer(wf, play) =  index : lintable(wf)
+linplayer(wf, play) = index : lintable(wf)
 	with {
 		index = play : (* : max(-size) : min(size-0.000001)) ~ +(speed); // grow index while playing, 0 otherwise
 		size = wf : _,!;
