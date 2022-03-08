@@ -2,7 +2,7 @@
 
 Faust DSP cource code of the GeekBagatelles musical piece, a participatory work for smartphones and orchestra, by Bernard Cavanna for the european project “ONE ® IS MORE”, the european network for orchestras, coordinated by orchestre de Pocardie and supported by the creative Europe program.
 
-This app allows whoever wants to perform the piece for Smartphones written by the French composer Bernard Cavanna to participate in many concerts in Europe along with different orchestras.
+This app allows whoever wants to perform the piece for smartphones written by the French composer Bernard Cavanna to participate in many concerts in Europe along with different orchestras.
 
 The music is inspired from Beethoven’s “Ninth Symphony” and is using different quotation of the original work.
 
